@@ -78,6 +78,7 @@ namespace TournamentTrackerUI
             this.prizePercentageValue.Name = "prizePercentageValue";
             this.prizePercentageValue.Size = new System.Drawing.Size(510, 50);
             this.prizePercentageValue.TabIndex = 18;
+            this.prizePercentageValue.Text = "0";
             // 
             // prizePercentageLabel
             // 
@@ -96,6 +97,7 @@ namespace TournamentTrackerUI
             this.prizeAmountValue.Name = "prizeAmountValue";
             this.prizeAmountValue.Size = new System.Drawing.Size(510, 50);
             this.prizeAmountValue.TabIndex = 20;
+            this.prizeAmountValue.Text = "0";
             // 
             // priceAmountLabel
             // 
@@ -152,6 +154,7 @@ namespace TournamentTrackerUI
             this.createPrizeButton.TabIndex = 24;
             this.createPrizeButton.Text = "Create Prize";
             this.createPrizeButton.UseVisualStyleBackColor = false;
+            this.createPrizeButton.Click += new System.EventHandler(this.createPrizeButton_Click);
             // 
             // CreatePrizeForm
             // 
