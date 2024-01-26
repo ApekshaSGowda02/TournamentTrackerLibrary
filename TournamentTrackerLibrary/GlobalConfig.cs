@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,5 +38,17 @@ namespace TournamentTrackerLibrary
             }
         }
 
+        /// <summary>
+        /// Goes to app.config and gets the connection string, by looking up the name parameter
+        /// </summary>
+        /// <param name="name"> Tournaments</param>
+        /// <returns> the connection string </returns>
+        public static string ConnString (string name)
+        {
+            //The below line initially threw an error because we did not have a ref for ConfigurationManager 
+            // for that go to reference > add reference > assemblies > search for config and click System Configuration
+            // once reference is assed go ahead and use it in using 
+            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+        }
     }
 }
