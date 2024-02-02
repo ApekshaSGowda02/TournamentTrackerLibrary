@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TournamentTrackerLibrary;
 
 namespace TournamentTrackerUI
 {
@@ -18,7 +19,8 @@ namespace TournamentTrackerUI
             Application.SetCompatibleTextRenderingDefault(false);
             // Initialize DB connection
             // First create a reference of TournamentTrackerLibray in TournamentTrackerUI References section
-            TournamentTrackerLibrary.GlobalConfig.InitializeConnections(true, true);
+            TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.TextFile);
+            //TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.Sql);
 
             //Application.Run(new TournamentDashboardForm());
             Application.Run(new CreatePrizeForm());

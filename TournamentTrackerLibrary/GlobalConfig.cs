@@ -19,22 +19,35 @@ namespace TournamentTrackerLibrary
 
         // the List<IDataConnections> need to be initialised before use and it can be done here or inside the method 
         // where the "Connections" is used like - Connections = new List<IDataConnection>
-        public static List<IDataConnection> Connections { get; private set; } = new List<IDataConnection>();
-        public static void InitializeConnections (bool database, bool textFiles)
+        //public static List<IDataConnection> Connections { get; private set; } = new List<IDataConnection>();
+
+        //now list is not required as we have a seperate classes for sql and text and we will use an enum isntead
+        public static IDataConnection Connection { get; private set; }
+        public static void InitializeConnections (DatabaseType db)
         {
-            if (database)
+            // we can use this instead of the if else as well
+            //switch (db)
+            //{
+            //    case DatabaseType.Sql:
+            //        break;
+            //    case DatabaseType.TextFile:
+            //        break;
+            //    default:
+            //        break;
+            //}
+            if (db == DatabaseType.Sql)
             {
                 // TODO - Create the SQL Connection (done)
                 // TODO - Set up the SQL connector properly
                 SQLConnector sql = new SQLConnector();
-                Connections.Add(sql);
+                Connection = sql;
             }
 
-            if (textFiles)
+            else if (db == DatabaseType.TextFile)
             {
                 //TODO - Create the text Connection
                 TextConnector text = new TextConnector();
-                Connections.Add(text);
+                Connection = text;
             }
         }
 

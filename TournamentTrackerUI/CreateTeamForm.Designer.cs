@@ -41,13 +41,13 @@ namespace TournamentTrackerUI
             this.deleteSelectedMemberButton = new System.Windows.Forms.Button();
             this.addNewMemberGroupBox = new System.Windows.Forms.GroupBox();
             this.createMemberButton = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.phoneValue = new System.Windows.Forms.TextBox();
             this.phoneLabel = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.emailValue = new System.Windows.Forms.TextBox();
             this.emailLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lastNameValue = new System.Windows.Forms.TextBox();
             this.lastNameLabel = new System.Windows.Forms.Label();
-            this.teamOneScoreValue = new System.Windows.Forms.TextBox();
+            this.firstNameValue = new System.Windows.Forms.TextBox();
             this.firstNameLabel = new System.Windows.Forms.Label();
             this.addNewMemberGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -160,13 +160,13 @@ namespace TournamentTrackerUI
             // addNewMemberGroupBox
             // 
             this.addNewMemberGroupBox.Controls.Add(this.createMemberButton);
-            this.addNewMemberGroupBox.Controls.Add(this.textBox3);
+            this.addNewMemberGroupBox.Controls.Add(this.phoneValue);
             this.addNewMemberGroupBox.Controls.Add(this.phoneLabel);
-            this.addNewMemberGroupBox.Controls.Add(this.textBox2);
+            this.addNewMemberGroupBox.Controls.Add(this.emailValue);
             this.addNewMemberGroupBox.Controls.Add(this.emailLabel);
-            this.addNewMemberGroupBox.Controls.Add(this.textBox1);
+            this.addNewMemberGroupBox.Controls.Add(this.lastNameValue);
             this.addNewMemberGroupBox.Controls.Add(this.lastNameLabel);
-            this.addNewMemberGroupBox.Controls.Add(this.teamOneScoreValue);
+            this.addNewMemberGroupBox.Controls.Add(this.firstNameValue);
             this.addNewMemberGroupBox.Controls.Add(this.firstNameLabel);
             this.addNewMemberGroupBox.Location = new System.Drawing.Point(557, 95);
             this.addNewMemberGroupBox.Name = "addNewMemberGroupBox";
@@ -190,13 +190,14 @@ namespace TournamentTrackerUI
             this.createMemberButton.TabIndex = 19;
             this.createMemberButton.Text = "Create Member";
             this.createMemberButton.UseVisualStyleBackColor = false;
+            this.createMemberButton.Click += new System.EventHandler(this.createMemberButton_Click);
             // 
-            // textBox3
+            // phoneValue
             // 
-            this.textBox3.Location = new System.Drawing.Point(234, 217);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(199, 50);
-            this.textBox3.TabIndex = 16;
+            this.phoneValue.Location = new System.Drawing.Point(234, 217);
+            this.phoneValue.Name = "phoneValue";
+            this.phoneValue.Size = new System.Drawing.Size(199, 50);
+            this.phoneValue.TabIndex = 16;
             // 
             // phoneLabel
             // 
@@ -209,12 +210,12 @@ namespace TournamentTrackerUI
             this.phoneLabel.TabIndex = 15;
             this.phoneLabel.Text = "Phone";
             // 
-            // textBox2
+            // emailValue
             // 
-            this.textBox2.Location = new System.Drawing.Point(234, 161);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(199, 50);
-            this.textBox2.TabIndex = 14;
+            this.emailValue.Location = new System.Drawing.Point(234, 161);
+            this.emailValue.Name = "emailValue";
+            this.emailValue.Size = new System.Drawing.Size(199, 50);
+            this.emailValue.TabIndex = 14;
             // 
             // emailLabel
             // 
@@ -227,12 +228,12 @@ namespace TournamentTrackerUI
             this.emailLabel.TabIndex = 13;
             this.emailLabel.Text = "Email";
             // 
-            // textBox1
+            // lastNameValue
             // 
-            this.textBox1.Location = new System.Drawing.Point(234, 105);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(199, 50);
-            this.textBox1.TabIndex = 12;
+            this.lastNameValue.Location = new System.Drawing.Point(234, 105);
+            this.lastNameValue.Name = "lastNameValue";
+            this.lastNameValue.Size = new System.Drawing.Size(199, 50);
+            this.lastNameValue.TabIndex = 12;
             // 
             // lastNameLabel
             // 
@@ -245,12 +246,12 @@ namespace TournamentTrackerUI
             this.lastNameLabel.TabIndex = 11;
             this.lastNameLabel.Text = "Last Name";
             // 
-            // teamOneScoreValue
+            // firstNameValue
             // 
-            this.teamOneScoreValue.Location = new System.Drawing.Point(234, 49);
-            this.teamOneScoreValue.Name = "teamOneScoreValue";
-            this.teamOneScoreValue.Size = new System.Drawing.Size(199, 50);
-            this.teamOneScoreValue.TabIndex = 10;
+            this.firstNameValue.Location = new System.Drawing.Point(234, 49);
+            this.firstNameValue.Name = "firstNameValue";
+            this.firstNameValue.Size = new System.Drawing.Size(199, 50);
+            this.firstNameValue.TabIndex = 10;
             // 
             // firstNameLabel
             // 
@@ -304,13 +305,13 @@ namespace TournamentTrackerUI
         private System.Windows.Forms.Button deleteSelectedMemberButton;
         private System.Windows.Forms.GroupBox addNewMemberGroupBox;
         private System.Windows.Forms.Button createMemberButton;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox phoneValue;
         private System.Windows.Forms.Label phoneLabel;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox emailValue;
         private System.Windows.Forms.Label emailLabel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox lastNameValue;
         private System.Windows.Forms.Label lastNameLabel;
-        private System.Windows.Forms.TextBox teamOneScoreValue;
+        private System.Windows.Forms.TextBox firstNameValue;
         private System.Windows.Forms.Label firstNameLabel;
     }
 }
