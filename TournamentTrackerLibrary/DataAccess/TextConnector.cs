@@ -12,12 +12,27 @@ namespace TournamentTrackerLibrary.DataAccess
     public class TextConnector : IDataConnection
     {
         //TODO - create a logic to add data to the text file.
-
+        
         private const string PrizesFile = "PrizeModels.csv"; // private variables are always camel case but a private constant class is alwasy pascal case
+        private const string PeopleFile = "PersonModels.csv";
+        private const string TeamFile = "TeamModels.csv";
 
         public PersonModel CreatePerson(PersonModel model)
         {
-            throw new NotImplementedException();
+            List<PersonModel> people = PeopleFile.FullFilePath().LoadFile().ConvertToPersonModels();
+
+            int currentId = 1;
+            if (people.Count > 0)
+            {
+                currentId = people.OrderByDescending(x => x.PersonId).First().PersonId + 1;
+            }
+            model.PersonId = currentId;
+
+            people.Add(model);
+
+            people.SaveToPeopleFile(PeopleFile);
+
+            return model;
         }
 
         public PrizeModel CreatePrize(PrizeModel model)
@@ -46,6 +61,28 @@ namespace TournamentTrackerLibrary.DataAccess
             prizes.SaveToPrizeFile(PrizesFile);
 
             return model;
+        }
+
+        public TeamModel CreateTeam(TeamModel model)
+        {
+            List<TeamModel> teams = TeamFile.FullFilePath().LoadFile().ConvertToTeamModels(PeopleFile);
+            int currentId = 1;
+            if (teams.Count > 0)
+            {
+                currentId = teams.OrderByDescending(x => x.TeamId).First().TeamId + 1;
+            }
+            model.TeamId = currentId;
+
+            teams.Add(model);
+
+            teams.SaveToTeamFile(TeamFile);
+
+            return model;
+        }
+
+        public List<PersonModel> GetPerson_All()
+        {
+            return PeopleFile.FullFilePath().LoadFile().ConvertToPersonModels();
         }
     }
 }

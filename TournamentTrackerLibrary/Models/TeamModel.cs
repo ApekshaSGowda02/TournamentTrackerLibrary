@@ -15,7 +15,9 @@ namespace TournamentTrackerLibrary.Models
             TeamMembers = new List<Person>        
         }*/
         // But now there is no need to define a constructor to instatiate a property and this is new in core 6
-        public List<PersonModel> TeamMembers { get; set; } = new List<PersonModel>();
+        public int TeamId { get; set; }
         public string TeamName { get; set; }
+        public List<PersonModel> TeamMembers { get; set; } = new List<PersonModel>();
+
     }
 }

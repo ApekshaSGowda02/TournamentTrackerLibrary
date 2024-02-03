@@ -19,11 +19,12 @@ namespace TournamentTrackerUI
             Application.SetCompatibleTextRenderingDefault(false);
             // Initialize DB connection
             // First create a reference of TournamentTrackerLibray in TournamentTrackerUI References section
+
             TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.TextFile);
             //TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.Sql);
 
             //Application.Run(new TournamentDashboardForm());
-            Application.Run(new CreatePrizeForm());
+            Application.Run(new CreateTeamForm());
 
         }
     }

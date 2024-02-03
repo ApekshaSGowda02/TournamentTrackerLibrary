@@ -11,10 +11,10 @@ namespace TournamentTrackerLibrary.DataAccess
 {
     public class SQLConnector : IDataConnection
     {
-
+        private const string db = "Tournaments";
         public PersonModel CreatePerson(PersonModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString("Tournaments")))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
             {
                 // we can write a db query heer like insert into prize values blah blah but we are not going to do that here, we will instead a SP to keep it secure from SQL ijections
 
@@ -22,13 +22,13 @@ namespace TournamentTrackerLibrary.DataAccess
                 var dynmParameter = new DynamicParameters();
                 dynmParameter.Add("@FirstName", model.FirstName);
                 dynmParameter.Add("@LastName", model.LastName);
-                dynmParameter.Add("@EmailAddress", model.EmailAddress);
-                dynmParameter.Add("@PhoneNumber", model.PhoneNumber);
+                dynmParameter.Add("@EmailAddress", model.Email);
+                dynmParameter.Add("@CellPhoneNumber", model.Phone);
                 dynmParameter.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("dbo.spPeople_Insert", dynmParameter, commandType: CommandType.StoredProcedure);
 
-                model.Id = dynmParameter.Get<int>("@id");
+                model.PersonId = dynmParameter.Get<int>("@id");
                 return model;
             }
         }
@@ -47,7 +47,7 @@ namespace TournamentTrackerLibrary.DataAccess
             //IDbConnection is a microsoft provided interface.
 
             // using - it says i want to wrap the ode in () and when it hits the using block's closing curly brace, the connection gets destroyed properly - hence providig memory leaks
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString("Tournaments")))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
             {
                 // we can write a db query heer like insert into prize values blah blah but we are not going to do that here, we will instead a SP to keep it secure from SQL ijections
 
@@ -66,5 +66,40 @@ namespace TournamentTrackerLibrary.DataAccess
             }
         }
 
+        public TeamModel CreateTeam(TeamModel model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            {
+                var dynmParameter = new DynamicParameters();
+                dynmParameter.Add("@TeamName", model.TeamName);
+                dynmParameter.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("dbo.spTeams_Insert", dynmParameter, commandType: CommandType.StoredProcedure);
+
+                model.TeamId = dynmParameter.Get<int>("@id");
+
+                foreach (PersonModel tm in model.TeamMembers)
+                {
+                    dynmParameter = new DynamicParameters();
+                    dynmParameter.Add("@TeamId", model.TeamId);
+                    dynmParameter.Add("@PersonId", tm.PersonId);
+
+                    connection.Execute("dbo.spTeamMembers_Insert", dynmParameter, commandType: CommandType.StoredProcedure);
+                }
+
+                return model;
+            }
+        }
+
+        public List<PersonModel> GetPerson_All()
+        {
+            List<PersonModel> output;
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            {
+                output = connection.Query<PersonModel>("dbo.spPeople_GetAll").ToList();
+            }
+
+            return output;
+        }
     }
 }
