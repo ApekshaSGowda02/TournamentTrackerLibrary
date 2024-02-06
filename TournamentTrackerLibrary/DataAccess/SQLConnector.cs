@@ -101,5 +101,25 @@ namespace TournamentTrackerLibrary.DataAccess
 
             return output;
         }
+
+        public List<TeamModel> GetTeam_All()
+        {
+            List<TeamModel> output;
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            {
+                output = connection.Query<TeamModel>("dbo.spTeam_GetAll").ToList();
+
+                // From the above SP we got Team Id and Team Name but in Team Model we have a Lst of Person Model we need to capture that as well
+                // for that we need to loop through every teams and call a SP which accepts a team id and returns the person detail back
+
+                foreach (TeamModel team in output)
+                {
+                    var dynmParameter = new DynamicParameters();
+                    dynmParameter.Add("@TeamId", team.TeamId);
+                    team.TeamMembers = connection.Query<PersonModel>("dbo.spTeamMembers_GetByTeam", dynmParameter, commandType: CommandType.StoredProcedure).ToList();
+                }
+            }
+            return output;
+        }
     }
 }

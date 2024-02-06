@@ -20,11 +20,11 @@ namespace TournamentTrackerUI
             // Initialize DB connection
             // First create a reference of TournamentTrackerLibray in TournamentTrackerUI References section
 
-            TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.TextFile);
-            //TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.Sql);
+            //TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.TextFile);
+            TournamentTrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.Sql);
 
             //Application.Run(new TournamentDashboardForm());
-            Application.Run(new CreateTeamForm());
+            Application.Run(new CreateTournamentForm());
 
         }
     }
