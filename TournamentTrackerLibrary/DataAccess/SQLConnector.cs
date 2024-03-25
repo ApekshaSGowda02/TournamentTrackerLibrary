@@ -33,7 +33,6 @@ namespace TournamentTrackerLibrary.DataAccess
             }
         }
 
-
         //TODO - Make the craete prize method save the data to the db
         /// <summary>
         /// saves a new prize into the db
@@ -88,6 +87,56 @@ namespace TournamentTrackerLibrary.DataAccess
                 }
 
                 return model;
+            }
+        }
+
+        public void CreateTournament(TournamentModel model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            {
+                SaveTournament(connection, model);
+
+                SaveTournamentPrizes(connection, model);
+
+                SaveTournamentEntries(connection, model);
+            }
+        }
+
+        private void SaveTournament(IDbConnection connection, TournamentModel model)
+        {
+            var dynmParameter = new DynamicParameters();
+            dynmParameter.Add("@TournamentName", model.TournamentName);
+            dynmParameter.Add("@EntryFee", model.EntryFee);
+            dynmParameter.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            connection.Execute("dbo.spTournament_Insert", dynmParameter, commandType: CommandType.StoredProcedure);
+
+            model.TournamentId = dynmParameter.Get<int>("@id");
+        }
+
+        private void SaveTournamentPrizes(IDbConnection connection, TournamentModel model)
+        {
+            foreach (PrizeModel pz in model.Prizes)
+            {
+                var dynmParameter = new DynamicParameters();
+                dynmParameter.Add("@TournamentId", model.TournamentId);
+                dynmParameter.Add("@PrizeId", pz.Id);
+                dynmParameter.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("dbo.spTournamentPrizes_Insert", dynmParameter, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        private void SaveTournamentEntries(IDbConnection connection, TournamentModel model)
+        {
+            foreach (TeamModel tm in model.EnteredTeams)
+            {
+                var dynmParameter = new DynamicParameters();
+                dynmParameter.Add("@TournamentId", model.TournamentId);
+                dynmParameter.Add("@TeamId", tm.TeamId);
+                dynmParameter.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("dbo.spTournamentEntries_Insert", dynmParameter, commandType: CommandType.StoredProcedure);
             }
         }
 
